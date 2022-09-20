@@ -3,7 +3,8 @@ import '../widgets/high_scores.dart';
 import "dart:math";
 
 import '../models/person.dart';
-import "../widgets/games/memory_game/memory_game.dart";
+import 'games/memory_game.dart';
+import 'games/jumping_game.dart';
 import 'big_button.dart';
 
 class StartScreen extends StatefulWidget {
@@ -47,6 +48,13 @@ class _StartScreenState extends State<StartScreen> {
   void startMemoryGame(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       MemoryGame.routeName, /*arguments: {"id": id, "title": title}*/
+    );
+    generateNewBackgroundColors();
+  }
+
+  void startJumpingGame(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      JumpingGame.routeName, /*arguments: {"id": id, "title": title}*/
     );
     generateNewBackgroundColors();
   }
@@ -116,7 +124,7 @@ class _StartScreenState extends State<StartScreen> {
                 width: 200,
                 child: Column(
                   children: [
-                    BigButton("Start Game", startMemoryGame),
+                    BigButton("Start Game", startJumpingGame),
                     BigButton("Show High Scores", showHighScores),
                   ],
                 ),
