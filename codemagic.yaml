@@ -42,7 +42,7 @@ workflows:
 
   flutter-android:
     name: Flutter Android
-    working_directory: flutter
+    working_directory: ./
     max_build_duration: 120
     environment:
       flutter: stable
