@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import '../widgets/high_scores.dart';
 import "dart:math";
 
 import '../models/person.dart';
@@ -46,6 +47,13 @@ class _StartScreenState extends State<StartScreen> {
   void startMemoryGame(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       MemoryGame.routeName, /*arguments: {"id": id, "title": title}*/
+    );
+    generateNewBackgroundColors();
+  }
+
+  void showHighScores(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      HighScores.routeName, /*arguments: {"id": id, "title": title}*/
     );
     generateNewBackgroundColors();
   }
@@ -109,7 +117,7 @@ class _StartScreenState extends State<StartScreen> {
                 child: Column(
                   children: [
                     BigButton("Start Game", startMemoryGame),
-                    BigButton("Show High Scores", () {}),
+                    BigButton("Show High Scores", showHighScores),
                   ],
                 ),
               )
