@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'widgets/start_screen.dart';
+import "./utils/http_methods.dart";
 
 void main() {
   runApp(const MyApp());
+  print(fetchColleagues());
 }
 
 class MyApp extends StatelessWidget {
