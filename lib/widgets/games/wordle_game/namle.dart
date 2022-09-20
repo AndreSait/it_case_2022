@@ -1,27 +1,38 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:it_case_2022/generate_person_list.dart';
 import 'dart:math';
 
+import '../../../models/person.dart';
 import 'keyboard.dart';
+
+// TODO: Fikse antall gule i s
 
 class NamlePage extends StatefulWidget {
   static const String routeName = "namle";
+  final int id = 123;
+  final List<Person> persons;
+  final Person person;
 
+  NamlePage(this.persons, {super.key})
+      : person = generatePersonList(persons, 1)[0];
   @override
   State<NamlePage> createState() => _NamlePageState();
 }
 
 class _NamlePageState extends State<NamlePage> {
-  String name = "Peter".toUpperCase();
-
   final int _maxTries = 5;
 
   String guess = "";
   Map<String, Color> colorOfLetter = {};
 
-  List<String> previousGuessArray = ["PETEA", "PETES"];
+  List<String> previousGuessArray = [];
 
-  bool testAttempt() {
+  String getFirstName(Person person) {
+    return person.name.split(" ")[0].toUpperCase();
+  }
+
+  bool testAttempt(String name) {
     previousGuessArray.add(guess);
     if (guess == name) {
       guess = "";
@@ -33,6 +44,7 @@ class _NamlePageState extends State<NamlePage> {
   }
 
   void keyBoardClicked(String c) {
+    String name = getFirstName(widget.person);
     if (c == "*") {
       // Backspace
       if (guess.isNotEmpty) {
@@ -44,7 +56,7 @@ class _NamlePageState extends State<NamlePage> {
       // Enter
       if (guess.length == name.length) {
         setState(() {
-          bool success = testAttempt();
+          bool success = testAttempt(name);
           if (success) {
             print("Name guessed after ${previousGuessArray.length} tries");
           } else if (previousGuessArray.length > _maxTries) {
@@ -61,11 +73,7 @@ class _NamlePageState extends State<NamlePage> {
     }
   }
 
-  "Peter"
-
-  "Peter".remove("e")
-
-  Color getColorOfChar(String c, int rowIndex, int charIndex) {
+  Color getColorOfChar(String c, int rowIndex, int charIndex, String name) {
     if (rowIndex >= previousGuessArray.length) {
       // For current row and below
       return Colors.transparent;
@@ -105,9 +113,10 @@ class _NamlePageState extends State<NamlePage> {
 
   @override
   Widget build(BuildContext context) {
-    int _gridWidthCount = name.length;
+    String name = getFirstName(widget.person);
+    int gridWidthCount = name.length;
     double viewPortWidth = MediaQuery.of(context).size.width;
-    double calculatedWidth = 50.0 * _gridWidthCount;
+    double calculatedWidth = 50.0 * gridWidthCount;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Namle'),
@@ -117,7 +126,7 @@ class _NamlePageState extends State<NamlePage> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: image(),
+              child: image(widget.person.imageUrl),
             ),
             // Gridview for guessing
             Row(
@@ -130,17 +139,18 @@ class _NamlePageState extends State<NamlePage> {
                     shrinkWrap: true,
                     padding: const EdgeInsets.all(10),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: _gridWidthCount,
+                        crossAxisCount: gridWidthCount,
                         crossAxisSpacing: 8,
                         mainAxisSpacing: 4),
                     children:
-                        List.generate(_gridWidthCount * _maxTries, (index) {
-                      int rowIndex = index ~/ _gridWidthCount;
-                      int charIndex = index % _gridWidthCount;
+                        List.generate(gridWidthCount * _maxTries, (index) {
+                      int rowIndex = index ~/ gridWidthCount;
+                      int charIndex = index % gridWidthCount;
                       var char = getCharacter(rowIndex, charIndex);
                       return Container(
                         decoration: BoxDecoration(
-                            color: getColorOfChar(char, rowIndex, charIndex),
+                            color:
+                                getColorOfChar(char, rowIndex, charIndex, name),
                             border: Border.all(color: Colors.grey, width: 3)),
                         child: Center(
                             child: Text(char,
@@ -156,15 +166,15 @@ class _NamlePageState extends State<NamlePage> {
         ));
   }
 
-  Widget image() {
-    return Container(
+  Widget image(String url) {
+    return SizedBox(
       width: 250,
       child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: AspectRatio(
             aspectRatio: 4 / 3,
             child: CachedNetworkImage(
-              imageUrl: 'https://picsum.photos/400/300',
+              imageUrl: url,
               fit: BoxFit.cover,
               placeholder: (ctx, str) => SizedBox.expand(
                 child: Container(
