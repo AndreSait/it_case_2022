@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 class BigButton extends StatelessWidget {
   final String title;
-  final Function onTap;
+  final Function(BuildContext context) onTap;
   const BigButton(this.title, this.onTap, {super.key});
 
   @override

@@ -109,7 +109,7 @@ class _StartScreenState extends State<StartScreen> {
                 child: Column(
                   children: [
                     BigButton("Start Game", startMemoryGame),
-                    BigButton("Show High Scores", () {}),
+                    BigButton("Show High Scores", (context) {}),
                   ],
                 ),
               )
