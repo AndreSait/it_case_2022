@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
 import "dart:math";
 
+import '../models/person.dart';
+
 import 'big_button.dart';
 
 class StartScreen extends StatefulWidget {
-  StartScreen({super.key});
+  final List<Person>? allPersons;
+  StartScreen({this.allPersons, super.key});
 
   @override
   State<StartScreen> createState() => _StartScreenState();
@@ -43,7 +46,6 @@ class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     generateNewBackgroundColors();
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -79,14 +81,16 @@ class _StartScreenState extends State<StartScreen> {
                       ),
                     ),
                   ),
-                  Text(
-                    "itCASE",
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  widget.allPersons != null
+                      ? Text(
+                          "itCASE",
+                          style: TextStyle(
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text("yo"),
                 ],
               ),
               SizedBox(

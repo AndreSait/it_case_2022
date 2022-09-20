@@ -1,17 +1,47 @@
 import 'package:flutter/material.dart';
 import 'widgets/start_screen.dart';
-import "./utils/http_methods.dart";
+import "../utils/http_methods.dart";
+import './models/person.dart';
 
 void main() {
   runApp(const MyApp());
-  print(fetchColleagues());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int index = 0;
+  List<Person>? allPersons;
+
+  Future<void> fetchAllPersons() async {
+    List<Person> newAllPersons = [];
+
+    try {
+      newAllPersons = await fetchColleagues();
+    } catch (ex, stacktrace) {
+      print("Exception $ex");
+      print("StackTrace $stacktrace");
+    }
+
+    List<String> names = newAllPersons.map((element) => element.name).toList();
+
+    print("Got the following names: $names");
+    setState(() {
+      allPersons = newAllPersons;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (index == 0) {
+      fetchAllPersons();
+    }
+    index++;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -31,7 +61,7 @@ class MyApp extends StatelessWidget {
                   color: Colors.white,
                 ),
               )),
-      home: StartScreen(),
+      home: StartScreen(allPersons: allPersons),
       routes: {
         //todo
       },
