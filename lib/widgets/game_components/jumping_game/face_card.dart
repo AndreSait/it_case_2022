@@ -2,6 +2,8 @@ import "package:flutter/material.dart";
 
 import "../../../models/person.dart";
 
+import 'package:cached_network_image/cached_network_image.dart';
+
 class FaceCard extends StatelessWidget {
   final Person person;
   final Function onPressed;
@@ -33,8 +35,9 @@ class FaceCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  person.imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: person.imageUrl,
+                  fit: BoxFit.cover,
                 ),
               )),
         ));
