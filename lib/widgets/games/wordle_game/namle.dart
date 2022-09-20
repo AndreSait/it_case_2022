@@ -6,7 +6,9 @@ import 'dart:math';
 import '../../../models/person.dart';
 import 'keyboard.dart';
 
-// TODO: Fikse antall gule i s
+// TODO:
+// 1. Gi feedback på riktig svar og game over (pil til neste game)
+// 2. Fikse antall gule i svaret (slik det er på wordle)
 
 class NamlePage extends StatefulWidget {
   static const String routeName = "namle";
