@@ -13,10 +13,10 @@ class MemoryGame extends StatefulWidget {
 class _MemoryGameState extends State<MemoryGame> {
   @override
   Widget build(BuildContext context) {
-    // final routeArgs =
-    //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    // final categoryTitle = routeArgs["title"];
-    // final categoryId = routeArgs["id"];
+    final routeArgs =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    final categoryTitle = routeArgs["title"];
+    final categoryId = routeArgs["id"];
     return Scaffold(
       body: Center(
         child: Column(

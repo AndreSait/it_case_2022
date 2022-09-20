@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:it_case_2022/widgets/games/wordle_game/namle.dart';
 import "dart:math";
 
 import '../models/person.dart';
@@ -46,6 +47,13 @@ class _StartScreenState extends State<StartScreen> {
   void startMemoryGame(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       MemoryGame.routeName, /*arguments: {"id": id, "title": title}*/
+    );
+    generateNewBackgroundColors();
+  }
+
+  void startNamleGame(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      NamlePage.routeName, /*arguments: {"id": id, "title": title}*/
     );
     generateNewBackgroundColors();
   }
@@ -108,7 +116,7 @@ class _StartScreenState extends State<StartScreen> {
                 width: 200,
                 child: Column(
                   children: [
-                    BigButton("Start Game", startMemoryGame),
+                    BigButton("Start Game", startNamleGame),
                     BigButton("Show High Scores", (context) {}),
                   ],
                 ),

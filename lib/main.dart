@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:it_case_2022/widgets/games/wordle_game/namle.dart';
 import 'widgets/start_screen.dart';
 import "../utils/http_methods.dart";
 import './models/person.dart';
@@ -68,6 +69,7 @@ class _MyAppState extends State<MyApp> {
       home: StartScreen(allPersons: allPersons),
       routes: {
         MemoryGame.routeName: (ctx) => MemoryGame(),
+        NamlePage.routeName: (ctx) => NamlePage(),
         // JumpingGame.routeName: (ctx) => JumpingGame(),
         // HighScores.routeName: (ctx) => HighScores(),
       },
