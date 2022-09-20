@@ -66,10 +66,12 @@ class _MyAppState extends State<MyApp> {
                   color: Colors.white,
                 ),
               )),
-      home: StartScreen(allPersons: allPersons),
+      home: allPersons != null
+          ? StartScreen(allPersons: allPersons)
+          : Center(child: CircularProgressIndicator()),
       routes: {
         MemoryGame.routeName: (ctx) => MemoryGame(),
-        NamlePage.routeName: (ctx) => NamlePage(),
+        NamlePage.routeName: (ctx) => NamlePage(allPersons!),
         JumpingGame.routeName: (ctx) => JumpingGame(
               personList: allPersons!,
             ),
