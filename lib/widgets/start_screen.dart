@@ -132,8 +132,9 @@ class _StartScreenState extends State<StartScreen> {
                 width: 200,
                 child: Column(
                   children: [
-                    BigButton("Namle", startNamleGame),
-                    BigButton("Start Game", startJumpingGame),
+                    BigButton("Namle Game", startNamleGame),
+                    BigButton("Memory Game", startMemoryGame),
+                    BigButton("Jumping Game", startJumpingGame),
                     BigButton("Show High Scores", showHighScores),
                   ],
                 ),
