@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:it_case_2022/game_manager.dart';
 import "dart:math";
 import '../game_components/jumping_game/face_cards_grid.dart';
 import "../../generate_person_list.dart";
@@ -8,13 +9,15 @@ class JumpingGame extends StatefulWidget {
   static const routeName = "jumping-game";
   final numberOfFaceCards = 4;
   final List<Person> personList;
-  JumpingGame({required this.personList, super.key});
+  final GameManager gameManager;
+  JumpingGame(this.gameManager, this.personList, {super.key});
 
   @override
   State<JumpingGame> createState() => _JumpingGameState();
 }
 
 class _JumpingGameState extends State<JumpingGame> {
+  int score = 250;
   late int chosenCardIndex;
   late int correctPersonIndex;
   late List<Person> randomPersonList;
@@ -70,7 +73,7 @@ class _JumpingGameState extends State<JumpingGame> {
             flex: 3,
             child: ElevatedButton(
               child: Text("Click"),
-              onPressed: () {},
+              onPressed: () => widget.gameManager.nextGame(context, score),
             ),
           ),
           Expanded(

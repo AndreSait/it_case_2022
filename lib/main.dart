@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:it_case_2022/game_manager.dart';
 import 'package:it_case_2022/widgets/games/namle_game.dart';
 import './widgets/start_screen.dart';
 import "../utils/http_methods.dart";
@@ -22,6 +23,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int index = 0;
   List<Person>? allPersons;
+  GameManager gameManager = GameManager();
 
   Future<void> fetchAllPersons() async {
     List<Person> newAllPersons = [];
@@ -33,9 +35,8 @@ class _MyAppState extends State<MyApp> {
       print("StackTrace $stacktrace");
     }
 
-    List<String> names = newAllPersons.map((element) => element.name).toList();
+    // List<String> names = newAllPersons.map((element) => element.name).toList();
 
-    print("Got the following names: $names");
     setState(() {
       allPersons = newAllPersons;
     });
@@ -67,14 +68,12 @@ class _MyAppState extends State<MyApp> {
                 ),
               )),
       home: allPersons != null
-          ? StartScreen(allPersons: allPersons)
+          ? StartScreen(gameManager: gameManager, allPersons: allPersons)
           : Center(child: CircularProgressIndicator()),
       routes: {
-        MemoryGame.routeName: (ctx) => MemoryGame(),
-        NamleGame.routeName: (ctx) => NamleGame(allPersons!),
-        JumpingGame.routeName: (ctx) => JumpingGame(
-              personList: allPersons!,
-            ),
+        MemoryGame.routeName: (ctx) => MemoryGame(gameManager),
+        NamleGame.routeName: (ctx) => NamleGame(gameManager, allPersons!),
+        JumpingGame.routeName: (ctx) => JumpingGame(gameManager, allPersons!),
         HighScores.routeName: (ctx) => HighScores(),
       },
     );

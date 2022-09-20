@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../../game_manager.dart';
 import '../../generate_person_list.dart';
 
 import '../../models/person.dart';
@@ -15,8 +16,9 @@ class NamleGame extends StatefulWidget {
   final int id = 123;
   final List<Person> persons;
   final Person person;
+  final GameManager gameManager;
 
-  NamleGame(this.persons, {super.key})
+  NamleGame(this.gameManager, this.persons, {super.key})
       : person = generatePersonList(persons, 1)[0];
   @override
   State<NamleGame> createState() => _NamleGameState();

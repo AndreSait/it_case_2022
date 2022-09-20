@@ -1,16 +1,18 @@
 import "package:flutter/material.dart";
-import '../widgets/high_scores.dart';
-import '../widgets/games/namle_game.dart';
+import 'package:it_case_2022/game_manager.dart';
 import "dart:math";
 
+import '../widgets/games/namle_game.dart';
+import '../widgets/games/memory_game.dart';
+import '../widgets/games/jumping_game.dart';
+import '../widgets/high_scores.dart';
 import '../models/person.dart';
-import 'games/memory_game.dart';
-import 'games/jumping_game.dart';
-import 'big_button.dart';
+import './big_button.dart';
 
 class StartScreen extends StatefulWidget {
   final List<Person>? allPersons;
-  StartScreen({this.allPersons, super.key});
+  final GameManager gameManager;
+  StartScreen({this.allPersons, required this.gameManager, super.key});
 
   @override
   State<StartScreen> createState() => _StartScreenState();
@@ -46,30 +48,9 @@ class _StartScreenState extends State<StartScreen> {
     });
   }
 
-  void startMemoryGame(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(
-      MemoryGame.routeName, /*arguments: {"id": id, "title": title}*/
-    );
-    generateNewBackgroundColors();
-  }
-
-  void startJumpingGame(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(
-      JumpingGame.routeName, /*arguments: {"id": id, "title": title}*/
-    );
-    generateNewBackgroundColors();
-  }
-
   void showHighScores(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
       HighScores.routeName, /*arguments: {"id": id, "title": title}*/
-    );
-    generateNewBackgroundColors();
-  }
-
-  void startNamleGame(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(
-      NamleGame.routeName, /*arguments: {"id": id, "title": title}*/
     );
     generateNewBackgroundColors();
   }
@@ -132,9 +113,18 @@ class _StartScreenState extends State<StartScreen> {
                 width: 200,
                 child: Column(
                   children: [
-                    BigButton("Namle Game", startNamleGame),
-                    BigButton("Memory Game", startMemoryGame),
-                    BigButton("Jumping Game", startJumpingGame),
+                    BigButton(
+                        "Namle Game",
+                        (context) => widget.gameManager
+                            .startSpecificGame(context, NamleGame.routeName)),
+                    BigButton(
+                        "Memory Game",
+                        (context) => widget.gameManager
+                            .startSpecificGame(context, MemoryGame.routeName)),
+                    BigButton(
+                        "Jumping Game",
+                        (context) => widget.gameManager
+                            .startSpecificGame(context, JumpingGame.routeName)),
                     BigButton("Show High Scores", showHighScores),
                   ],
                 ),

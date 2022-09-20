@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../game_manager.dart';
 import "../game_components/memory_game/flip_card.dart";
 
 class MemoryGame extends StatefulWidget {
   static const routeName = "memory-game";
-
-  const MemoryGame({super.key});
+  final GameManager gameManager;
+  const MemoryGame(this.gameManager, {super.key});
 
   @override
   State<MemoryGame> createState() => _MemoryGameState();
