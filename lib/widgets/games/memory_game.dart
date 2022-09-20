@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../game_components/memory_game/flip_card.dart';
+import "../game_components/memory_game/flip_card.dart";
 
 class MemoryGame extends StatefulWidget {
   static const routeName = "memory-game";

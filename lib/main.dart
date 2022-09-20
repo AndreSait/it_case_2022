@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:it_case_2022/widgets/games/wordle_game/namle.dart';
-import 'widgets/start_screen.dart';
+import './widgets/start_screen.dart';
 import "../utils/http_methods.dart";
 import './models/person.dart';
 
-import 'widgets/games/memory_game/memory_game.dart';
-// import './widgets/games/jumping_game.dart';
-// import './widgets/high_scores.dart';
+import './widgets/games/memory_game.dart';
+import './widgets/games/jumping_game.dart';
+import './widgets/high_scores.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,8 +70,10 @@ class _MyAppState extends State<MyApp> {
       routes: {
         MemoryGame.routeName: (ctx) => MemoryGame(),
         NamlePage.routeName: (ctx) => NamlePage(),
-        // JumpingGame.routeName: (ctx) => JumpingGame(),
-        // HighScores.routeName: (ctx) => HighScores(),
+        JumpingGame.routeName: (ctx) => JumpingGame(
+              personList: allPersons!,
+            ),
+        HighScores.routeName: (ctx) => HighScores(),
       },
     );
   }
