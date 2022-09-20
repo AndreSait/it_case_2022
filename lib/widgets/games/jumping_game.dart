@@ -55,14 +55,22 @@ class _JumpingGameState extends State<JumpingGame> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Container(),
           ),
           Expanded(
-            flex: 18,
+            flex: 14,
             child: Text(
               randomPersonList[correctPersonIndex].name,
-              style: TextStyle(fontSize: 40),
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: ElevatedButton(
+              child: Text("Click"),
+              onPressed: () {},
             ),
           ),
           Expanded(

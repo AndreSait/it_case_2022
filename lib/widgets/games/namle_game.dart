@@ -4,7 +4,7 @@ import 'dart:math';
 import '../../generate_person_list.dart';
 
 import '../../models/person.dart';
-import '../game_components/wordle_game/keyboard.dart';
+import '../game_components/namle_game/keyboard.dart';
 
 // TODO:
 // 1. Gi feedback på riktig svar og game over (pil til neste game)

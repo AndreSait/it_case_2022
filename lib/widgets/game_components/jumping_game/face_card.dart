@@ -35,9 +35,15 @@ class FaceCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  imageUrl: person.imageUrl,
-                  fit: BoxFit.cover,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color.fromARGB(255, 243, 243, 243),
+                  ),
+                  child: CachedNetworkImage(
+                    imageUrl: person.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               )),
         ));
