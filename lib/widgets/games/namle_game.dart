@@ -1,28 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:it_case_2022/generate_person_list.dart';
 import 'dart:math';
+import '../../generate_person_list.dart';
 
-import '../../../models/person.dart';
-import 'keyboard.dart';
+import '../../models/person.dart';
+import '../game_components/wordle_game/keyboard.dart';
 
 // TODO:
 // 1. Gi feedback på riktig svar og game over (pil til neste game)
 // 2. Fikse antall gule i svaret (slik det er på wordle)
 
-class NamlePage extends StatefulWidget {
-  static const String routeName = "namle";
+class NamleGame extends StatefulWidget {
+  static const String routeName = "namle-game";
   final int id = 123;
   final List<Person> persons;
   final Person person;
 
-  NamlePage(this.persons, {super.key})
+  NamleGame(this.persons, {super.key})
       : person = generatePersonList(persons, 1)[0];
   @override
-  State<NamlePage> createState() => _NamlePageState();
+  State<NamleGame> createState() => _NamleGameState();
 }
 
-class _NamlePageState extends State<NamlePage> {
+class _NamleGameState extends State<NamleGame> {
   final int _maxTries = 5;
 
   String guess = "";

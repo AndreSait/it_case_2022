@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import '../widgets/high_scores.dart';
-import 'package:it_case_2022/widgets/games/wordle_game/namle.dart';
+import '../widgets/games/namle_game.dart';
 import "dart:math";
 
 import '../models/person.dart';
@@ -69,7 +69,7 @@ class _StartScreenState extends State<StartScreen> {
 
   void startNamleGame(BuildContext ctx) {
     Navigator.of(ctx).pushNamed(
-      NamlePage.routeName, /*arguments: {"id": id, "title": title}*/
+      NamleGame.routeName, /*arguments: {"id": id, "title": title}*/
     );
     generateNewBackgroundColors();
   }

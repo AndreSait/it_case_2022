@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:it_case_2022/widgets/games/wordle_game/namle.dart';
+import 'package:it_case_2022/widgets/games/namle_game.dart';
 import './widgets/start_screen.dart';
 import "../utils/http_methods.dart";
 import './models/person.dart';
@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
           : Center(child: CircularProgressIndicator()),
       routes: {
         MemoryGame.routeName: (ctx) => MemoryGame(),
-        NamlePage.routeName: (ctx) => NamlePage(allPersons!),
+        NamleGame.routeName: (ctx) => NamleGame(allPersons!),
         JumpingGame.routeName: (ctx) => JumpingGame(
               personList: allPersons!,
             ),
