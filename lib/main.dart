@@ -3,6 +3,10 @@ import 'widgets/start_screen.dart';
 import "../utils/http_methods.dart";
 import './models/person.dart';
 
+import 'widgets/games/memory_game/memory_game.dart';
+// import './widgets/games/jumping_game.dart';
+// import './widgets/high_scores.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -63,7 +67,9 @@ class _MyAppState extends State<MyApp> {
               )),
       home: StartScreen(allPersons: allPersons),
       routes: {
-        //todo
+        MemoryGame.routeName: (ctx) => MemoryGame(),
+        // JumpingGame.routeName: (ctx) => JumpingGame(),
+        // HighScores.routeName: (ctx) => HighScores(),
       },
     );
   }

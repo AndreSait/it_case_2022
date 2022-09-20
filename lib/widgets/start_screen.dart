@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "dart:math";
 
 import '../models/person.dart';
-
+import "../widgets/games/memory_game/memory_game.dart";
 import 'big_button.dart';
 
 class StartScreen extends StatefulWidget {
@@ -43,9 +43,17 @@ class _StartScreenState extends State<StartScreen> {
     });
   }
 
+  void startMemoryGame(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      MemoryGame.routeName, /*arguments: {"id": id, "title": title}*/
+    );
+    generateNewBackgroundColors();
+  }
+
   @override
   Widget build(BuildContext context) {
     generateNewBackgroundColors();
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -100,7 +108,7 @@ class _StartScreenState extends State<StartScreen> {
                 width: 200,
                 child: Column(
                   children: [
-                    BigButton("Start Game", () {}),
+                    BigButton("Start Game", startMemoryGame),
                     BigButton("Show High Scores", () {}),
                   ],
                 ),
