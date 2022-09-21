@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:it_case_2022/game_manager.dart';
 import "dart:math";
-import '../game_components/jumping_game/face_cards_grid.dart';
-import "../../generate_person_list.dart";
 import "../../models/person.dart";
+import "../../theme/palette.dart";
+
+import "../../generate_person_list.dart";
+import '../game_components/jumping_game/face_cards_grid.dart';
+import "../game_components/jumping_game/running_graphics.dart";
 
 class JumpingGame extends StatefulWidget {
   static const routeName = "jumping-game";
@@ -58,22 +61,40 @@ class _JumpingGameState extends State<JumpingGame> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Container(),
           ),
           Expanded(
-            flex: 16,
-            child: Text(
-              randomPersonList[correctPersonIndex].name,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            flex: 5,
+            child: Center(
+              child: Text(
+                randomPersonList[correctPersonIndex].name,
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           Expanded(
+            flex: 12,
+            child: RunningGraphics(),
+          ),
+          Expanded(
             flex: 1,
-            child: ElevatedButton(
-              child: Text("Next"),
-              onPressed: () => widget.gameManager.nextGame(context, score),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white,
+                    Palette.primaryBackground,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              child: ElevatedButton(
+                child: Text("Next"),
+                onPressed: () => widget.gameManager.nextGame(context, score),
+              ),
             ),
           ),
           Expanded(

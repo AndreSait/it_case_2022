@@ -4,6 +4,7 @@ import 'package:it_case_2022/widgets/games/namle_game.dart';
 import './widgets/start_screen.dart';
 import "../utils/http_methods.dart";
 import './models/person.dart';
+import "./theme/palette.dart";
 
 import './widgets/games/memory_game.dart';
 import './widgets/games/jumping_game.dart';
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          canvasColor: Color.fromARGB(255, 228, 227, 194),
+          canvasColor: Palette.primaryBackground,
           fontFamily: "Railway",
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.yellow,

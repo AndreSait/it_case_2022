@@ -104,16 +104,14 @@ class _StartScreenState extends State<StartScreen> {
                       ),
                     ),
                   ),
-                  widget.allPersons != null
-                      ? Text(
-                          "itCASE",
-                          style: TextStyle(
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        )
-                      : Text("yo"),
+                  Text(
+                    "itCASE",
+                    style: TextStyle(
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )
                 ],
               ),
               SizedBox(

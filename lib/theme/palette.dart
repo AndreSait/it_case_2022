@@ -1,5 +1,6 @@
 import 'dart:ui';
 
 class Palette {
-  static const Color primary = Color(0xFFFF9900); //sRBG
+  static const Color primaryBackground =
+      Color.fromARGB(255, 228, 227, 194); //sRBG
 }
