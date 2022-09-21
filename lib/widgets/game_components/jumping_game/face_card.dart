@@ -31,6 +31,7 @@ class FaceCard extends StatelessWidget {
               ? () {
                   onPressed(person.index);
                   numberOfClicks.addClick();
+                  generateNewPersonList();
                 }
               : () => generateNewPersonList(),
           splashColor: Theme.of(context).primaryColor,

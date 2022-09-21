@@ -26,6 +26,14 @@ class _JumpingGameState extends State<JumpingGame> {
   late int correctPersonIndex;
   late int correctPersonIndexActual;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    generateNewPersonList();
+  }
+
   late List<Person> randomPersonList;
   NumberOfClicks numberOfClicks = NumberOfClicks();
 
@@ -33,6 +41,10 @@ class _JumpingGameState extends State<JumpingGame> {
   //Solution should be to change correctIndex, and if none have not yet been chosen, create new list
 
   void generateNewPersonList() {
+    if (numberOfClicks.clicks == 2) {
+      widget.gameManager.nextGame(context, 100);
+      return;
+    }
     List<Person> newRandomPersonList = generatePersonList(widget.personList, 4);
     var randomGenerator = Random();
     int randomIndex = randomGenerator.nextInt(newRandomPersonList.length);
@@ -56,7 +68,6 @@ class _JumpingGameState extends State<JumpingGame> {
 
   @override
   Widget build(BuildContext context) {
-    generateNewPersonList();
     // final routeArgs =
     //     ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     // final categoryTitle = routeArgs["title"];
@@ -95,10 +106,6 @@ class _JumpingGameState extends State<JumpingGame> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
-              ),
-              child: ElevatedButton(
-                child: Text("Next"),
-                onPressed: () => widget.gameManager.nextGame(context, score),
               ),
             ),
           ),
