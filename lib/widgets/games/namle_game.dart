@@ -7,6 +7,17 @@ import '../../generate_person_list.dart';
 import '../../models/person.dart';
 import '../game_components/namle_game/keyboard.dart';
 
+List<List<Color>> initcolor2DArray(rows, index) {
+  List<List<Color>> color2DArray = [];
+  for (int i = 0; i < rows; i++) {
+    color2DArray.add([]);
+    for (int j = 0; j < index; j++) {
+      color2DArray[i].add(Colors.transparent);
+    }
+  }
+  return color2DArray;
+}
+
 // TODO:
 // 1. Gi feedback på riktig svar og game over (pil til neste game) [SOLVED]
 // 2. Fikse antall gule i svaret (slik det er på wordle)
@@ -33,6 +44,7 @@ class _NamleGameState extends State<NamleGame> {
   Map<String, Color> colorOfLetter = {};
 
   List<String> previousGuessArray = [];
+  List<List<Color>> color2DArray = initcolor2DArray(5, 5);
 
   String getFirstName(Person person) {
     return person.name.split(" ")[0].toUpperCase();
@@ -77,6 +89,47 @@ class _NamleGameState extends State<NamleGame> {
         setState(() {
           guess += c;
         });
+      }
+    }
+  }
+
+  void updateColor2DArray() {
+    String name = getFirstName(widget.person);
+
+    // Do the following for all rows
+    for (int i = 0; i < previousGuessArray.length; i++) {
+      var row = previousGuessArray[i];
+      var rowName = name.substring(0, row.length); // Deep copy of name
+
+      // For each row
+      // check for number of greens
+      for (int j = 0; j < row.length; j++) {
+        if (row[j] == name[j]) {
+          color2DArray[i][j] = Colors.green;
+        }
+      }
+      // Remove the same greens
+      for (int j = 0; j < row.length; j++) {
+        if (row[j] == name[j]) {
+          rowName = rowName.substring(0, j) +
+              rowName.substring(j + 1, rowName.length);
+        }
+      }
+
+      // Check for number of yellows
+      for (int j = 0; j < row.length; j++) {
+        if (rowName.contains(row[j])) {
+          color2DArray[i][j] = Colors.yellow;
+          rowName = rowName.replaceAll(row[j], "");
+        }
+      }
+
+      for (int j = 0; j < previousGuessArray[i].length; j++) {
+        if (previousGuessArray[i][j] == getFirstName(widget.person)[j]) {
+          color2DArray[i][j] = Colors.yellow;
+        } else {
+          color2DArray[i][j] = Colors.red;
+        }
       }
     }
   }

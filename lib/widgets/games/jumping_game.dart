@@ -7,6 +7,7 @@ import "../../theme/palette.dart";
 import "../../generate_person_list.dart";
 import '../game_components/jumping_game/face_cards_grid.dart';
 import "../game_components/jumping_game/running_graphics.dart";
+import "../game_components/jumping_game/number_of_clicks.dart";
 
 class JumpingGame extends StatefulWidget {
   static const routeName = "jumping-game";
@@ -24,8 +25,9 @@ class _JumpingGameState extends State<JumpingGame> {
   late int chosenCardIndex;
   late int correctPersonIndex;
   late List<Person> randomPersonList;
+  NumberOfClicks numberOfClicks = NumberOfClicks();
 
-  //TODO make sure a previously guessed name doesn't reappear (might cause problem?)
+  // TODO make sure a previously guessed name doesn't reappear (might cause problem?)
   //Solution should be to change correctIndex, and if none have not yet been chosen, create new list
 
   void generateNewPersonList() {
@@ -76,7 +78,7 @@ class _JumpingGameState extends State<JumpingGame> {
           ),
           Expanded(
             flex: 12,
-            child: RunningGraphics(),
+            child: RunningGraphics(widget.gameManager, numberOfClicks),
           ),
           Expanded(
             flex: 1,
@@ -100,7 +102,9 @@ class _JumpingGameState extends State<JumpingGame> {
           Expanded(
             flex: 10,
             child: FaceCardsGrid(
-                randomPersonList: randomPersonList, onPressed: chooseCard),
+                randomPersonList: randomPersonList,
+                onPressed: chooseCard,
+                numberOfClicks: numberOfClicks),
           )
         ],
       ),

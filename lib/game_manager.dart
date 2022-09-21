@@ -9,6 +9,7 @@ import "./widgets/game_over_screen.dart";
 class GameManager {
   int currentRoundIndex = 0;
   int totalScore = 0;
+  int maxScoreForSingleGame = 100;
   List<String> gameRoutes = [
     NamleGame.routeName,
     MemoryGame.routeName,

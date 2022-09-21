@@ -3,11 +3,17 @@ import "package:flutter/material.dart";
 import "../../../models/person.dart";
 
 import 'package:cached_network_image/cached_network_image.dart';
+import "number_of_clicks.dart";
 
 class FaceCard extends StatelessWidget {
   final Person person;
   final Function onPressed;
-  const FaceCard({required this.person, required this.onPressed, super.key});
+  final NumberOfClicks numberOfClicks;
+  const FaceCard(
+      {required this.person,
+      required this.onPressed,
+      required this.numberOfClicks,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,10 @@ class FaceCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
         ),
         child: InkWell(
-          onTap: () => {onPressed(person.index)},
+          onTap: () {
+            onPressed(person.index);
+            numberOfClicks.addClick();
+          },
           splashColor: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(50),
           child: Container(

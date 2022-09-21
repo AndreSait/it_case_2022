@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import "../../../models/person.dart";
 
 import 'face_card.dart';
+import "number_of_clicks.dart";
 
 class FaceCardsGrid extends StatelessWidget {
   final List<Person> randomPersonList;
   final Function onPressed;
+  final NumberOfClicks numberOfClicks;
   FaceCardsGrid(
-      {required this.randomPersonList, required this.onPressed, super.key});
+      {required this.randomPersonList,
+      required this.onPressed,
+      required this.numberOfClicks,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,10 @@ class FaceCardsGrid extends StatelessWidget {
         mainAxisSpacing: 5,
       ),
       children: randomPersonList.map((person) {
-        return FaceCard(person: person, onPressed: onPressed);
+        return FaceCard(
+            person: person,
+            onPressed: onPressed,
+            numberOfClicks: numberOfClicks);
       }).toList(),
     );
   }
