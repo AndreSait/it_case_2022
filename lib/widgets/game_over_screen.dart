@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:it_case_2022/highscore_manager.dart';
 import 'package:it_case_2022/widgets/big_button.dart';
 import 'package:share_plus/share_plus.dart';
 import "../game_manager.dart";
 
 class GameOverScreen extends StatelessWidget {
   static String routeName = "game-over-screen";
+  final HighScoreManager highScoreManager = HighScoreManager();
   final GameManager gameManager;
-  const GameOverScreen(this.gameManager, {super.key});
+  GameOverScreen(this.gameManager, {super.key});
 
   void shareScore() {
     Share.share(
@@ -24,6 +26,16 @@ class GameOverScreen extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
+          FutureBuilder(
+              future: highScoreManager.getHighScore(),
+              builder: ((context, snapshot) {
+                if (snapshot.hasData) {
+                  int highScore = snapshot.data ?? 0;
+                  return Text("High Score: $highScore");
+                } else {
+                  return Text("Loading...");
+                }
+              })),
           Text(
             "Total score: ${gameManager.totalScore}",
             style: TextStyle(fontSize: 25),

@@ -65,8 +65,9 @@ class GameManager {
   }
 
   void endGame(BuildContext ctx, int score) {
+    totalScore += score;
     HighScoreManager highScoreManager = HighScoreManager();
-    highScoreManager.setHighScoreIfBigger(score);
+    highScoreManager.setHighScoreIfBigger(totalScore);
 
     Navigator.of(ctx).pushReplacementNamed(GameOverScreen.routeName);
   }
