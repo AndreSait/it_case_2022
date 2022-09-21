@@ -213,10 +213,20 @@ class _NamleGameState extends State<NamleGame> {
                   return Container(
                     decoration: BoxDecoration(
                         color: color2DArray[rowIndex][charIndex],
-                        border: Border.all(color: Colors.grey, width: 3)),
+                        border: Border.all(
+                            color: color2DArray[rowIndex][charIndex] ==
+                                    Colors.transparent
+                                ? Colors.grey
+                                : color2DArray[rowIndex][charIndex],
+                            width: 3)),
                     child: Center(
-                        child:
-                            Text(char, style: const TextStyle(fontSize: 20))),
+                        child: Text(char,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: color2DArray[rowIndex][charIndex] ==
+                                        Colors.transparent
+                                    ? Colors.white
+                                    : Colors.black))),
                   );
                 }),
               ),

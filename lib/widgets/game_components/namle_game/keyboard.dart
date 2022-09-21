@@ -56,7 +56,11 @@ class Keyboard extends StatelessWidget {
           child: Center(
             child: Text(
               c,
-              style: const TextStyle(fontSize: 28),
+              style: TextStyle(
+                  fontSize: 28,
+                  color: backgroundColor == Color.fromARGB(255, 90, 90, 90)
+                      ? Colors.white
+                      : Colors.black),
             ),
           ),
         ),
