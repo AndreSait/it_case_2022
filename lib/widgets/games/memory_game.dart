@@ -19,7 +19,7 @@ class MemoryGame extends StatefulWidget {
 class _MemoryGameState extends State<MemoryGame> {
   Person? selectedPerson;
   late List<CardInfo> cards;
-  int score = 0;
+  int numberOfTries = 0;
   bool gameOver = false;
 
   @override
@@ -49,6 +49,7 @@ class _MemoryGameState extends State<MemoryGame> {
         if (selectedPerson == null) {
           selectedPerson = card.person;
         } else {
+          numberOfTries++;
           if (selectedPerson == card.person) {
             cards.forEach((element) {
               if (element.person == card.person && element.isFlipped) {
@@ -99,8 +100,8 @@ class _MemoryGameState extends State<MemoryGame> {
               gameOver
                   ? ElevatedButton(
                       child: Text("Next"),
-                      onPressed: () =>
-                          widget.gameManager.nextGame(context, 100),
+                      onPressed: () => widget.gameManager
+                          .nextGame(context, 100 ~/ numberOfTries),
                     )
                   : Container(),
             ],

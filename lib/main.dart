@@ -55,15 +55,15 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          canvasColor: Palette.primaryBackground,
+          canvasColor: Color.fromRGBO(38, 38, 38, 1.0),
           fontFamily: "Railway",
           colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.yellow,
-            accentColor: Colors.amber,
+            primarySwatch: Colors.orange,
+            accentColor: Colors.orangeAccent,
           ),
-          textTheme: ThemeData.light().textTheme.copyWith(
-                bodyText1: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
-                bodyText2: TextStyle(color: Color.fromRGBO(20, 51, 51, 1)),
+          textTheme: ThemeData.dark().textTheme.copyWith(
+                bodyText1: TextStyle(color: Color.fromARGB(255, 161, 187, 187)),
+                bodyText2: TextStyle(color: Color.fromARGB(255, 186, 202, 202)),
                 headline1: TextStyle(
                   fontSize: 50,
                   fontFamily: "Railway",

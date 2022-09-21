@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:it_case_2022/highscore_manager.dart';
 import "dart:math";
 
 import './widgets/games/namle_game.dart';
@@ -65,7 +66,9 @@ class GameManager {
   }
 
   void endGame(BuildContext ctx, int score) {
-    // totalScore += score;
+    totalScore += score;
+    HighScoreManager highScoreManager = HighScoreManager();
+    highScoreManager.setHighScoreIfBigger(totalScore);
 
     Navigator.of(ctx).pushReplacementNamed(GameOverScreen.routeName);
   }
