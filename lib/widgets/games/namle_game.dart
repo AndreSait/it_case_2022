@@ -122,52 +122,51 @@ class _NamleGameState extends State<NamleGame> {
     double viewPortWidth = MediaQuery.of(context).size.width;
     double calculatedWidth = 50.0 * gridWidthCount;
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Namle'),
-        ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: image(widget.person.imageUrl),
+        ),
+        // Gridview for guessing
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: image(widget.person.imageUrl),
+            Container(
+              constraints:
+                  BoxConstraints(maxWidth: min(calculatedWidth, viewPortWidth)),
+              child: GridView(
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: gridWidthCount,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 4),
+                children: List.generate(gridWidthCount * _maxTries, (index) {
+                  int rowIndex = index ~/ gridWidthCount;
+                  int charIndex = index % gridWidthCount;
+                  var char = getCharacter(rowIndex, charIndex);
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: getColorOfChar(char, rowIndex, charIndex, name),
+                        border: Border.all(color: Colors.grey, width: 3)),
+                    child: Center(
+                        child:
+                            Text(char, style: const TextStyle(fontSize: 20))),
+                  );
+                }),
+              ),
             ),
-            // Gridview for guessing
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  constraints: BoxConstraints(
-                      maxWidth: min(calculatedWidth, viewPortWidth)),
-                  child: GridView(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(10),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: gridWidthCount,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 4),
-                    children:
-                        List.generate(gridWidthCount * _maxTries, (index) {
-                      int rowIndex = index ~/ gridWidthCount;
-                      int charIndex = index % gridWidthCount;
-                      var char = getCharacter(rowIndex, charIndex);
-                      return Container(
-                        decoration: BoxDecoration(
-                            color:
-                                getColorOfChar(char, rowIndex, charIndex, name),
-                            border: Border.all(color: Colors.grey, width: 3)),
-                        child: Center(
-                            child: Text(char,
-                                style: const TextStyle(fontSize: 20))),
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            ),
-            Keyboard(keyBoardClicked, colorOfLetter),
           ],
-        ));
+        ),
+        ElevatedButton(
+          child: Text("Next"),
+          onPressed: () => widget.gameManager.nextGame(context, 300),
+        ),
+        Keyboard(keyBoardClicked, colorOfLetter),
+      ],
+    ));
   }
 
   Widget image(String url) {

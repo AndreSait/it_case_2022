@@ -8,6 +8,7 @@ import './models/person.dart';
 import './widgets/games/memory_game.dart';
 import './widgets/games/jumping_game.dart';
 import './widgets/high_scores.dart';
+import "./widgets/game_over_screen.dart";
 
 void main() {
   runApp(const MyApp());
@@ -74,6 +75,7 @@ class _MyAppState extends State<MyApp> {
         MemoryGame.routeName: (ctx) => MemoryGame(gameManager),
         NamleGame.routeName: (ctx) => NamleGame(gameManager, allPersons!),
         JumpingGame.routeName: (ctx) => JumpingGame(gameManager, allPersons!),
+        GameOverScreen.routeName: (ctx) => GameOverScreen(gameManager),
         HighScores.routeName: (ctx) => HighScores(),
       },
     );

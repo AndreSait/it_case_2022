@@ -72,7 +72,7 @@ class _JumpingGameState extends State<JumpingGame> {
           Expanded(
             flex: 3,
             child: ElevatedButton(
-              child: Text("Click"),
+              child: Text("Next"),
               onPressed: () => widget.gameManager.nextGame(context, score),
             ),
           ),

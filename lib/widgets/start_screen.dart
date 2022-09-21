@@ -116,15 +116,15 @@ class _StartScreenState extends State<StartScreen> {
                     BigButton(
                         "Namle Game",
                         (context) => widget.gameManager
-                            .startSpecificGame(context, NamleGame.routeName)),
+                            .startNewGame(context, NamleGame.routeName)),
                     BigButton(
                         "Memory Game",
                         (context) => widget.gameManager
-                            .startSpecificGame(context, MemoryGame.routeName)),
+                            .startNewGame(context, MemoryGame.routeName)),
                     BigButton(
                         "Jumping Game",
                         (context) => widget.gameManager
-                            .startSpecificGame(context, JumpingGame.routeName)),
+                            .startNewGame(context, JumpingGame.routeName)),
                     BigButton("Show High Scores", showHighScores),
                   ],
                 ),
