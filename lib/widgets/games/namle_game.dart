@@ -26,7 +26,7 @@ class NamleGame extends StatefulWidget {
 class _NamleGameState extends State<NamleGame> {
   final int _maxTries = 5;
 
-  bool gameIsFinished = false; // Deciding whether to show button or keyboard
+  bool gameIsFinished = false; // Deciding whether to show next/game-over button
   bool hasWon = false; // Deciding whether to show next/game-over button
 
   String guess = "";
@@ -182,7 +182,7 @@ class _NamleGameState extends State<NamleGame> {
                     child: Text("Next"),
                     onPressed: () => widget.gameManager.nextGame(
                         context,
-                        (widget.gameManager.maxScoreForSingleGame *
+                        (100 *
                                 ((_maxTries - (previousGuessArray.length - 1)) /
                                     _maxTries))
                             .toInt()),

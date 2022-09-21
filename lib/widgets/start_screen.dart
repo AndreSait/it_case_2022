@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:it_case_2022/game_manager.dart';
+import 'package:it_case_2022/highscore_manager.dart';
 import "dart:math";
 
 import '../widgets/games/namle_game.dart';
@@ -20,6 +21,8 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+  HighScoreManager highScoreManager = HighScoreManager();
+
   @override
   void initState() {
     super.initState();
@@ -31,11 +34,11 @@ class _StartScreenState extends State<StartScreen> {
   }
 
   final List<Color> colorList = [
-    Colors.red,
-    Colors.yellow,
+    Color.fromRGBO(38, 38, 38, 1.0),
+    Colors.orange,
     Colors.deepOrange,
-    Colors.cyan,
-    Colors.green,
+    Color.fromRGBO(38, 38, 38, 1.0),
+    Colors.deepPurpleAccent,
     Colors.deepPurple,
   ];
 
@@ -133,7 +136,18 @@ class _StartScreenState extends State<StartScreen> {
                         "Jumping Game",
                         (context) => widget.gameManager
                             .startNewGame(context, JumpingGame.routeName)),
-                    BigButton("Show High Scores", showHighScores),
+                    FutureBuilder(
+                        future: highScoreManager.getHighScore(),
+                        builder: ((context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              "Highscore: ${snapshot.data}",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24),
+                            );
+                          }
+                          return Text("Highscore: 0");
+                        }))
                   ],
                 ),
               )

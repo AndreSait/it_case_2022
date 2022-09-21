@@ -53,7 +53,11 @@ class FlipCard extends StatelessWidget {
       key: ValueKey(true),
       elevation: 10,
       color: Color.fromARGB(255, 209, 201, 201),
-      child: Center(),
+      child: Center(
+        child: CachedNetworkImage(
+            imageUrl:
+                "https://cdn.sanity.io/images/ndtelfg5/production/9e304004f37b0dc576283e1894deab9478eaf242-107x146.png?rect=0,20,107,107&w=50&h=50&auto=format"),
+      ),
     );
   }
 

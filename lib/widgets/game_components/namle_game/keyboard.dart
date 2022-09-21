@@ -18,7 +18,7 @@ class Keyboard extends StatelessWidget {
           width: 50,
           height: 50,
           child: IconButton(
-            icon: const Icon(Icons.backspace),
+            icon: const Icon(Icons.backspace, color: Colors.white),
             onPressed: () {
               callback(c);
             },
@@ -29,7 +29,7 @@ class Keyboard extends StatelessWidget {
           width: 50,
           height: 50,
           child: IconButton(
-            icon: const Icon(Icons.keyboard_return),
+            icon: const Icon(Icons.keyboard_return, color: Colors.white),
             onPressed: () {
               callback(c);
             },
@@ -38,7 +38,7 @@ class Keyboard extends StatelessWidget {
       }
 
       // Coloring of the letters
-      Color backgroundColor = Color.fromARGB(255, 220, 220, 220);
+      Color backgroundColor = Color.fromARGB(255, 90, 90, 90);
       if (colorOfLetter.containsKey(c)) {
         backgroundColor = colorOfLetter[c]!;
       }
