@@ -11,6 +11,17 @@ import '../game_components/namle_game/keyboard.dart';
 // 1. Gi feedback på riktig svar og game over (pil til neste game) [SOLVED]
 // 2. Fikse antall gule i svaret (slik det er på wordle)
 
+List<List<Color>> initcolor2DArray(rows, index) {
+  List<List<Color>> color2DArray = [];
+  for (int i = 0; i < rows; i++) {
+    color2DArray.add([]);
+    for (int j = 0; j < index; j++) {
+      color2DArray[i].add(Colors.transparent);
+    }
+  }
+  return color2DArray;
+}
+
 class NamleGame extends StatefulWidget {
   static const String routeName = "namle-game";
   final List<Person> persons;
@@ -33,6 +44,15 @@ class _NamleGameState extends State<NamleGame> {
   Map<String, Color> colorOfLetter = {};
 
   List<String> previousGuessArray = [];
+  List<List<Color>> color2DArray = initcolor2DArray(5, 5);
+
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => {
+          color2DArray =
+              initcolor2DArray(_maxTries, getFirstName(widget.person).length)
+        });
+  }
 
   String getFirstName(Person person) {
     return person.name.split(" ")[0].toUpperCase();
@@ -40,6 +60,7 @@ class _NamleGameState extends State<NamleGame> {
 
   bool testAttempt(String name) {
     previousGuessArray.add(guess);
+    updateColor2DArray();
     if (guess == name) {
       guess = "";
       return true;
@@ -81,22 +102,44 @@ class _NamleGameState extends State<NamleGame> {
     }
   }
 
-  Color getColorOfChar(String c, int rowIndex, int charIndex, String name) {
-    if (rowIndex >= previousGuessArray.length) {
-      // For current row and below
-      return Colors.transparent;
-    } else if (name[charIndex] == c) {
-      colorOfLetter[c] = Colors.green;
-      return Colors.green;
-    } else if (name.contains(c)) {
-      if (!colorOfLetter.containsKey(c)) {
-        // Only set if not yet colored, to avoid overriding green
-        colorOfLetter[c] = Colors.yellow;
+  void updateColor2DArray() {
+    String name = getFirstName(widget.person);
+
+    // Do the following for all rows above the current
+    for (int i = 0; i < previousGuessArray.length; i++) {
+      var row = previousGuessArray[i];
+      var rowName = name.substring(0, row.length); // Deep copy of name
+
+      // For each row
+      // check for number of greens
+      for (int j = 0; j < row.length; j++) {
+        if (row[j] == name[j]) {
+          color2DArray[i][j] = Colors.green;
+        }
       }
-      return Colors.yellow;
+      // Remove the same greens
+      for (int j = 0; j < row.length; j++) {
+        if (row[j] == name[j]) {
+          rowName = rowName.substring(0, j) +
+              rowName.substring(j + 1, rowName.length);
+        }
+      }
+
+      // Check for number of yellows
+      for (int j = 0; j < row.length; j++) {
+        if (rowName.contains(row[j]) && color2DArray[i][j] != Colors.green) {
+          color2DArray[i][j] = Colors.yellow;
+          rowName = rowName.replaceFirst(row[j], "");
+        }
+      }
+
+      // Set the rest to grey
+      for (int j = 0; j < row.length; j++) {
+        if (color2DArray[i][j] == Colors.transparent) {
+          color2DArray[i][j] = Color.fromARGB(255, 171, 171, 171);
+        }
+      }
     }
-    colorOfLetter[c] = Color.fromARGB(255, 171, 171, 171);
-    return Color.fromARGB(255, 171, 171, 171);
   }
 
   String getCharacter(rowIndex, charIndex) {
@@ -153,7 +196,7 @@ class _NamleGameState extends State<NamleGame> {
                   var char = getCharacter(rowIndex, charIndex);
                   return Container(
                     decoration: BoxDecoration(
-                        color: getColorOfChar(char, rowIndex, charIndex, name),
+                        color: color2DArray[rowIndex][charIndex],
                         border: Border.all(color: Colors.grey, width: 3)),
                     child: Center(
                         child:
