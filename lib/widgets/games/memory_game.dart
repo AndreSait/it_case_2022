@@ -17,7 +17,7 @@ class MemoryGame extends StatefulWidget {
 }
 
 class _MemoryGameState extends State<MemoryGame> {
-  Person? selectedPerson;
+  CardInfo? firstCard;
   late List<CardInfo> cards;
   int numberOfTries = 0;
   bool gameOver = false;
@@ -46,28 +46,25 @@ class _MemoryGameState extends State<MemoryGame> {
       if (!card.isFlipped) {
         card.isFlipped = true;
 
-        if (selectedPerson == null) {
-          selectedPerson = card.person;
+        if (firstCard == null) {
+          firstCard = card;
+          firstCard!.isFlipped = true;
         } else {
           numberOfTries++;
-          if (selectedPerson == card.person) {
-            cards.forEach((element) {
-              if (element.person == card.person && element.isFlipped) {
-                element.isMatched = true;
-              }
-            });
-            selectedPerson = null;
+          if (firstCard!.person == card.person) {
+            // correct
+            card.isMatched = true;
+            firstCard!.isMatched = true;
+            firstCard = null;
           } else {
-            cards.forEach((element) {
-              if (element.person == card.person &&
-                  element.showImage == card.showImage) {
-                element.isFlipped = true;
-              }
-              if (element.person == selectedPerson) {
-                element.isFlipped = false;
-              }
+            //  wait 1 second and flip back
+            Future.delayed(Duration(seconds: 1), () {
+              setState(() {
+                card.isFlipped = false;
+                firstCard!.isFlipped = false;
+                firstCard = null;
+              });
             });
-            selectedPerson = card.person;
           }
         }
         // if all cards are matched, set gameOver to true
