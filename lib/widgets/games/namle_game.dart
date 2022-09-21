@@ -8,12 +8,11 @@ import '../../models/person.dart';
 import '../game_components/namle_game/keyboard.dart';
 
 // TODO:
-// 1. Gi feedback på riktig svar og game over (pil til neste game)
+// 1. Gi feedback på riktig svar og game over (pil til neste game) [SOLVED]
 // 2. Fikse antall gule i svaret (slik det er på wordle)
 
 class NamleGame extends StatefulWidget {
   static const String routeName = "namle-game";
-  final int id = 123;
   final List<Person> persons;
   final Person person;
   final GameManager gameManager;
@@ -27,7 +26,8 @@ class NamleGame extends StatefulWidget {
 class _NamleGameState extends State<NamleGame> {
   final int _maxTries = 5;
 
-  bool gameIsFinished = false;  // Deciding whether to show next/game-over button
+  bool gameIsFinished = false; // Deciding whether to show button or keyboard
+  bool hasWon = false; // Deciding whether to show next/game-over button
 
   String guess = "";
   Map<String, Color> colorOfLetter = {};
@@ -66,6 +66,7 @@ class _NamleGameState extends State<NamleGame> {
           if (success) {
             print("Name guessed after ${previousGuessArray.length} tries");
             gameIsFinished = true;
+            hasWon = true;
           } else if (previousGuessArray.length >= _maxTries) {
             gameIsFinished = true;
           }
@@ -163,16 +164,30 @@ class _NamleGameState extends State<NamleGame> {
             ),
           ],
         ),
-        if (gameIsFinished) ?
-        (if (previousGuessArray.length >= _maxTries) ? // Game was lost
-        ElevatedButton(
-          child: Text("Main Menu"),
-          onPressed: () => widget.gameManager.endGame(context, 0),
-        ) : ElevatedButton(
-          child: Text("Next"),
-          onPressed: () => widget.gameManager.nextGame(context, 300),
-        )) :
-        Keyboard(keyBoardClicked, colorOfLetter),
+        gameIsFinished
+            ? (!hasWon)
+                ? // Game was lost
+                Column(
+                    children: [
+                      Text("This is ${getFirstName(widget.person)}",
+                          style: TextStyle(fontSize: 20)),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        child: Text("Show Score"),
+                        onPressed: () => widget.gameManager.endGame(context, 0),
+                      )
+                    ],
+                  )
+                : ElevatedButton(
+                    child: Text("Next"),
+                    onPressed: () => widget.gameManager.nextGame(
+                        context,
+                        (widget.gameManager.maxScoreForSingleGame *
+                                ((_maxTries - (previousGuessArray.length - 1)) /
+                                    _maxTries))
+                            .toInt()),
+                  )
+            : Keyboard(keyBoardClicked, colorOfLetter),
       ],
     ));
   }
