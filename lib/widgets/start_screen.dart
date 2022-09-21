@@ -124,18 +124,16 @@ class _StartScreenState extends State<StartScreen> {
                 width: 200,
                 child: Column(
                   children: [
-                    BigButton(
-                        "Namle Game",
-                        (context) => widget.gameManager
-                            .startNewGame(context, NamleGame.routeName)),
-                    BigButton(
-                        "Memory Game",
-                        (context) => widget.gameManager
-                            .startNewGame(context, MemoryGame.routeName)),
-                    BigButton(
-                        "Jumping Game",
-                        (context) => widget.gameManager
-                            .startNewGame(context, JumpingGame.routeName)),
+                    BigButton("Start Game", (context) {
+                      var routes = [
+                        NamleGame.routeName,
+                        MemoryGame.routeName,
+                        JumpingGame.routeName
+                      ];
+                      String randomRoute =
+                          routes[Random().nextInt(routes.length)];
+                      widget.gameManager.startNewGame(context, randomRoute);
+                    }),
                     FutureBuilder(
                         future: highScoreManager.getHighScore(),
                         builder: ((context, snapshot) {

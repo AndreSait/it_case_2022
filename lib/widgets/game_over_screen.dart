@@ -22,6 +22,7 @@ class GameOverScreen extends StatelessWidget {
         title: Text("Game Over"),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             height: 30,
@@ -31,15 +32,21 @@ class GameOverScreen extends StatelessWidget {
               builder: ((context, snapshot) {
                 if (snapshot.hasData) {
                   int highScore = snapshot.data ?? 0;
-                  return Text("High Score: $highScore");
+                  return Text(
+                    "High Score: $highScore",
+                    style: TextStyle(fontSize: 25),
+                  );
                 } else {
                   return Text("Loading...");
                 }
               })),
-          Text(
-            "Total score: ${gameManager.totalScore}",
-            style: TextStyle(fontSize: 25),
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Text(
+              "Total score: ${gameManager.totalScore}",
+              style: TextStyle(fontSize: 30),
+              textAlign: TextAlign.center,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(28.0),

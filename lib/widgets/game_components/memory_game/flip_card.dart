@@ -97,7 +97,12 @@ class FlipCard extends StatelessWidget {
     return Card(
       key: ValueKey(false),
       elevation: 10,
-      child: Center(child: Text(cardInfo.person.name)),
+      child: Center(
+          child: Text(
+        cardInfo.person.name,
+        style: TextStyle(fontSize: 20, color: Colors.black38),
+        textAlign: TextAlign.center,
+      )),
     );
   }
 
