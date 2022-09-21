@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
           ? StartScreen(gameManager: gameManager, allPersons: allPersons)
           : Center(child: CircularProgressIndicator()),
       routes: {
-        MemoryGame.routeName: (ctx) => MemoryGame(gameManager),
+        MemoryGame.routeName: (ctx) => MemoryGame(gameManager, allPersons!),
         NamleGame.routeName: (ctx) => NamleGame(gameManager, allPersons!),
         JumpingGame.routeName: (ctx) => JumpingGame(gameManager, allPersons!),
         GameOverScreen.routeName: (ctx) => GameOverScreen(gameManager),
