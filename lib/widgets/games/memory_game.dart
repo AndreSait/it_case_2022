@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:it_case_2022/generate_person_list.dart';
 import 'package:it_case_2022/models/person.dart';
@@ -21,6 +22,7 @@ class _MemoryGameState extends State<MemoryGame> {
   late List<CardInfo> cards;
   int numberOfTries = 0;
   bool gameOver = false;
+  static AudioCache player = AudioCache();
 
   @override
   void initState() {
@@ -54,6 +56,8 @@ class _MemoryGameState extends State<MemoryGame> {
             cards.forEach((element) {
               if (element.person == card.person && element.isFlipped) {
                 element.isMatched = true;
+                //play soundeffect
+                player.play("sounds/success.mp3");
               }
             });
             selectedPerson = null;

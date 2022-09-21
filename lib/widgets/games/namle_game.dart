@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -24,6 +25,7 @@ List<List<Color>> initcolor2DArray(rows, index) {
 
 class NamleGame extends StatefulWidget {
   static const String routeName = "namle-game";
+
   final List<Person> persons;
   final Person person;
   final GameManager gameManager;
@@ -36,6 +38,7 @@ class NamleGame extends StatefulWidget {
 
 class _NamleGameState extends State<NamleGame> {
   final int _maxTries = 5;
+  static AudioCache player = AudioCache();
 
   bool gameIsFinished = false; // Deciding whether to show next/game-over button
   bool hasWon = false; // Deciding whether to show next/game-over button
@@ -90,6 +93,7 @@ class _NamleGameState extends State<NamleGame> {
             print("Name guessed after ${previousGuessArray.length} tries");
             gameIsFinished = true;
             hasWon = true;
+            player.play("sounds/success.mp3");
           } else if (previousGuessArray.length >= _maxTries) {
             gameIsFinished = true;
           }
