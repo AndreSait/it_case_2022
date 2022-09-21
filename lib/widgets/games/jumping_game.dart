@@ -62,7 +62,7 @@ class _JumpingGameState extends State<JumpingGame> {
             child: Container(),
           ),
           Expanded(
-            flex: 14,
+            flex: 16,
             child: Text(
               randomPersonList[correctPersonIndex].name,
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
@@ -70,7 +70,7 @@ class _JumpingGameState extends State<JumpingGame> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 1,
             child: ElevatedButton(
               child: Text("Next"),
               onPressed: () => widget.gameManager.nextGame(context, score),

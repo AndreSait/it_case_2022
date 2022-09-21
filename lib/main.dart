@@ -22,7 +22,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int index = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    fetchAllPersons();
+  }
+
   List<Person>? allPersons;
   GameManager gameManager = GameManager();
 
@@ -45,10 +51,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    if (index == 0) {
-      fetchAllPersons();
-    }
-    index++;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

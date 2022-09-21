@@ -8,6 +8,7 @@ import '../widgets/games/jumping_game.dart';
 import '../widgets/high_scores.dart';
 import '../models/person.dart';
 import './big_button.dart';
+import 'dart:async';
 
 class StartScreen extends StatefulWidget {
   final List<Person>? allPersons;
@@ -19,6 +20,16 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 20), () => generateNewBackgroundColors());
+    Timer.periodic(Duration(seconds: 5), (timer) {
+      generateNewBackgroundColors();
+    });
+    generateNewBackgroundColors();
+  }
+
   final List<Color> colorList = [
     Colors.red,
     Colors.yellow,
@@ -57,10 +68,9 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    generateNewBackgroundColors();
-
     return Scaffold(
-      body: Container(
+      body: AnimatedContainer(
+        duration: Duration(seconds: 5),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [

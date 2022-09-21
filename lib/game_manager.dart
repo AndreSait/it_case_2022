@@ -38,7 +38,7 @@ class GameManager {
     while (gameRoutes[randomIndex] == lastTenGames.last) {
       newRandomIndex();
     }
-    int few = 4; // The number last few checked
+    int few = 4; // The number of last few checked for pseudo-randomness
     if (gamesPlayed > few) {
       Set<String> lastFewTypes = {};
       int numberOfVariationsForLastFew() {
