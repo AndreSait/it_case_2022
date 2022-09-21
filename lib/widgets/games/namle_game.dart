@@ -7,17 +7,6 @@ import '../../generate_person_list.dart';
 import '../../models/person.dart';
 import '../game_components/namle_game/keyboard.dart';
 
-List<List<Color>> initcolor2DArray(rows, index) {
-  List<List<Color>> color2DArray = [];
-  for (int i = 0; i < rows; i++) {
-    color2DArray.add([]);
-    for (int j = 0; j < index; j++) {
-      color2DArray[i].add(Colors.transparent);
-    }
-  }
-  return color2DArray;
-}
-
 // TODO:
 // 1. Gi feedback på riktig svar og game over (pil til neste game) [SOLVED]
 // 2. Fikse antall gule i svaret (slik det er på wordle)
