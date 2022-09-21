@@ -8,11 +8,15 @@ import "number_of_clicks.dart";
 class FaceCard extends StatelessWidget {
   final Person person;
   final Function onPressed;
+  final Function generateNewPersonList;
   final NumberOfClicks numberOfClicks;
+  final int correctPersonIndex;
   const FaceCard(
       {required this.person,
       required this.onPressed,
+      required this.generateNewPersonList,
       required this.numberOfClicks,
+      required this.correctPersonIndex,
       super.key});
 
   @override
@@ -23,10 +27,12 @@ class FaceCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
         ),
         child: InkWell(
-          onTap: () {
-            onPressed(person.index);
-            numberOfClicks.addClick();
-          },
+          onTap: (person.index == correctPersonIndex)
+              ? () {
+                  onPressed(person.index);
+                  numberOfClicks.addClick();
+                }
+              : () => generateNewPersonList(),
           splashColor: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(50),
           child: Container(

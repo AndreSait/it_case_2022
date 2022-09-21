@@ -7,11 +7,15 @@ import "number_of_clicks.dart";
 class FaceCardsGrid extends StatelessWidget {
   final List<Person> randomPersonList;
   final Function onPressed;
+  final Function generateNewPersonList;
+  final int correctPersonIndex;
   final NumberOfClicks numberOfClicks;
   FaceCardsGrid(
       {required this.randomPersonList,
       required this.onPressed,
       required this.numberOfClicks,
+      required this.generateNewPersonList,
+      required this.correctPersonIndex,
       super.key});
 
   @override
@@ -25,9 +29,12 @@ class FaceCardsGrid extends StatelessWidget {
       ),
       children: randomPersonList.map((person) {
         return FaceCard(
-            person: person,
-            onPressed: onPressed,
-            numberOfClicks: numberOfClicks);
+          person: person,
+          onPressed: onPressed,
+          numberOfClicks: numberOfClicks,
+          generateNewPersonList: generateNewPersonList,
+          correctPersonIndex: correctPersonIndex,
+        );
       }).toList(),
     );
   }

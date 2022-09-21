@@ -24,6 +24,8 @@ class _JumpingGameState extends State<JumpingGame> {
   int score = 250;
   late int chosenCardIndex;
   late int correctPersonIndex;
+  late int correctPersonIndexActual;
+
   late List<Person> randomPersonList;
   NumberOfClicks numberOfClicks = NumberOfClicks();
 
@@ -38,6 +40,7 @@ class _JumpingGameState extends State<JumpingGame> {
       (() {
         randomPersonList = newRandomPersonList;
         correctPersonIndex = randomIndex;
+        correctPersonIndexActual = randomPersonList[randomIndex].index!;
       }),
     );
   }
@@ -102,9 +105,12 @@ class _JumpingGameState extends State<JumpingGame> {
           Expanded(
             flex: 10,
             child: FaceCardsGrid(
-                randomPersonList: randomPersonList,
-                onPressed: chooseCard,
-                numberOfClicks: numberOfClicks),
+              randomPersonList: randomPersonList,
+              onPressed: chooseCard,
+              numberOfClicks: numberOfClicks,
+              generateNewPersonList: generateNewPersonList,
+              correctPersonIndex: correctPersonIndexActual,
+            ),
           )
         ],
       ),
