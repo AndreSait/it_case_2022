@@ -59,7 +59,7 @@ class _NamleGameState extends State<NamleGame> {
 
   String getFirstName(Person person) {
     var name = person.name.split(" ")[0].toUpperCase();
-    name = name.replaceAll("é", "e");
+    name = name.replaceAll("É", "E");
     return name;
   }
 
