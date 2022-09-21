@@ -44,7 +44,7 @@ class _NamleGameState extends State<NamleGame> {
   Map<String, Color> colorOfLetter = {};
 
   List<String> previousGuessArray = [];
-  List<List<Color>> color2DArray = initcolor2DArray(5, 5);
+  late List<List<Color>> color2DArray = initcolor2DArray(5, 50);
 
   void initState() {
     super.initState();
@@ -55,7 +55,9 @@ class _NamleGameState extends State<NamleGame> {
   }
 
   String getFirstName(Person person) {
-    return person.name.split(" ")[0].toUpperCase();
+    var name = person.name.split(" ")[0].toUpperCase();
+    name = name.replaceAll("é", "e");
+    return name;
   }
 
   bool testAttempt(String name) {
@@ -115,12 +117,14 @@ class _NamleGameState extends State<NamleGame> {
       for (int j = 0; j < row.length; j++) {
         if (row[j] == name[j]) {
           color2DArray[i][j] = Colors.green;
+          colorOfLetter[row[j]] = Colors.green; // Used for color on keyboard
         }
       }
       // Remove the same greens
       for (int j = 0; j < row.length; j++) {
         if (row[j] == name[j]) {
           rowName = rowName.substring(0, j) +
+              "_" +
               rowName.substring(j + 1, rowName.length);
         }
       }
@@ -130,6 +134,14 @@ class _NamleGameState extends State<NamleGame> {
         if (rowName.contains(row[j]) && color2DArray[i][j] != Colors.green) {
           color2DArray[i][j] = Colors.yellow;
           rowName = rowName.replaceFirst(row[j], "");
+
+          if (!colorOfLetter.containsKey(row[j])) {
+            // Only set if not yet colored, to avoid overriding green
+            colorOfLetter[row[j]] = Colors.yellow;
+          } else if (colorOfLetter[row[j]] ==
+              Color.fromARGB(255, 171, 171, 171)) {
+            colorOfLetter[row[j]] = Colors.yellow;
+          }
         }
       }
 
@@ -137,6 +149,10 @@ class _NamleGameState extends State<NamleGame> {
       for (int j = 0; j < row.length; j++) {
         if (color2DArray[i][j] == Colors.transparent) {
           color2DArray[i][j] = Color.fromARGB(255, 171, 171, 171);
+          if (!colorOfLetter.containsKey(row[j])) {
+            // Only set if not yet colored, to avoid overriding green
+            colorOfLetter[row[j]] = Color.fromARGB(255, 171, 171, 171);
+          }
         }
       }
     }
