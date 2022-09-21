@@ -27,6 +27,8 @@ class NamleGame extends StatefulWidget {
 class _NamleGameState extends State<NamleGame> {
   final int _maxTries = 5;
 
+  bool gameIsFinished = false;  // Deciding whether to show next/game-over button
+
   String guess = "";
   Map<String, Color> colorOfLetter = {};
 
@@ -63,8 +65,9 @@ class _NamleGameState extends State<NamleGame> {
           bool success = testAttempt(name);
           if (success) {
             print("Name guessed after ${previousGuessArray.length} tries");
-          } else if (previousGuessArray.length > _maxTries) {
-            print("Game over");
+            gameIsFinished = true;
+          } else if (previousGuessArray.length >= _maxTries) {
+            gameIsFinished = true;
           }
         });
       }
@@ -160,10 +163,15 @@ class _NamleGameState extends State<NamleGame> {
             ),
           ],
         ),
+        if (gameIsFinished) ?
+        (if (previousGuessArray.length >= _maxTries) ? // Game was lost
         ElevatedButton(
+          child: Text("Main Menu"),
+          onPressed: () => widget.gameManager.endGame(context, 0),
+        ) : ElevatedButton(
           child: Text("Next"),
           onPressed: () => widget.gameManager.nextGame(context, 300),
-        ),
+        )) :
         Keyboard(keyBoardClicked, colorOfLetter),
       ],
     ));
