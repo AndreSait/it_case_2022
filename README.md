@@ -1,6 +1,6 @@
 # it_case_2022
 
-A new Flutter project.
+This project was made by the winning team of a 24-hour competition called IT-case 2022, held by ITverket
 
 ## Getting Started
 
